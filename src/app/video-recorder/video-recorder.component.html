@@ -1,0 +1,8 @@
+<div class="video-container" style="z-index: 3000">
+  <video #video autoplay muted></video>
+</div>
+
+<div class="controls">
+  <button (click)="startRecording()" [disabled]="isRecording">start</button>
+  <button (click)="stopRecording()" [disabled]="!isRecording">stop</button>
+</div>
