@@ -19,8 +19,16 @@ export class VideoRecorderComponent implements OnInit {
 
     async ngOnInit() {
         try {
-            this.stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-            this.videoRef.nativeElement.srcObject = this.stream;
+            if (
+                typeof navigator !== 'undefined' &&
+                navigator.mediaDevices &&
+                typeof navigator.mediaDevices.getUserMedia === 'function'
+            ) {
+                this.stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                this.videoRef.nativeElement.srcObject = this.stream;
+            } else {
+                console.error('getUserMedia не підтримується в цьому браузері або середовищі.');
+            }
         } catch (err) {
             console.error('Access denied or error:', err);
         }
